@@ -1,11 +1,11 @@
-import sls from 'serverless';
+import Serverless from 'serverless';
 import Plugin from 'serverless/classes/Plugin';
 
 export default class ServerlessPackagePlugin extends Plugin {
   private readonly serverless;
   private readonly options;
 
-  public constructor(serverless: sls, options: sls.Options) {
+  public constructor(serverless: Serverless, options: Serverless.Options) {
     super(serverless, options);
 
     this.serverless = serverless;
