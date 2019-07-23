@@ -1,4 +1,7 @@
 # Serverless Plugin Package
+
+[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
+
 Makes `package.json` variables available.in `serverless.yml`, and exposes the `package.json` version as its `semver` components.
 
 ## Installing
