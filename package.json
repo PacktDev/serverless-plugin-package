@@ -2,19 +2,41 @@
   "name": "serverless-plugin-package",
   "version": "1.0.0",
   "description": "A serverless plugin to expose package.json variables",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint --ext ts .",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run lint:fix && git add -A src",
+    "postversion": "git push && git push --tags",
+    "build": "tsc",
+    "lint": "eslint '**/!(*.d).ts'",
     "lint:fix": "npm run lint --silent -- --fix",
     "task:update": "npx npm-check -uE",
     "task:pin": "npx npm-pin-dependencies",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "serverless"
+    "serverless",
+    "serverless plugin",
+    "package"
   ],
   "author": "Packt Publishing LTD",
+  "contributors": [
+    {
+      "name": "James Macmillan",
+      "email": "jamesm@packt.com"
+    }
+  ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PacktDev/serverless-plugin-package.git"
+  },
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "dependencies": {
     "serverless": "1.48.2"
   },
