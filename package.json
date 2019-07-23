@@ -1,0 +1,32 @@
+{
+  "name": "serverless-plugin-package",
+  "version": "1.0.0",
+  "description": "A serverless plugin to expose package.json variables",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext ts .",
+    "lint:fix": "npm run lint --silent -- --fix",
+    "task:update": "npx npm-check -uE",
+    "task:pin": "npx npm-pin-dependencies",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "serverless"
+  ],
+  "author": "Packt Publishing LTD",
+  "license": "MIT",
+  "dependencies": {
+    "serverless": "1.48.2"
+  },
+  "devDependencies": {
+    "@types/node": "10.14.13",
+    "@types/serverless": "1.18.2",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-prettier": "3.1.0",
+    "prettier": "1.18.2",
+    "typescript": "3.5.3"
+  }
+}
