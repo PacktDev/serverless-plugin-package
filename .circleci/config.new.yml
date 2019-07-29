@@ -1,0 +1,41 @@
+version: 2.1
+
+orbs:
+  npm: sugarshin/npm@0.1.5
+
+commands:
+  run-tests:
+    steps:
+      - run:
+          name: Test
+          command: npm run test
+
+executors:
+  nodejs:
+    docker:
+      - image: 'circleci/node:10.16.0'
+
+jobs:
+  build:
+    executor: nodejs
+    steps:
+      # todo: Collect coverage
+      - npm/install # Contains a checkout step (optional)
+      - run-tests
+  publish:
+    executor: nodejs
+    steps:
+      - npm/install # todo; cache and restore dist.
+
+
+workflows:
+  publish:
+    jobs:
+      - build
+      - publish:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
