@@ -4,7 +4,7 @@ import semver from 'semver';
 const variablePrefix = 'package';
 const packageFile = '/package.json';
 
-export class Plugin {
+export default class Plugin {
   private readonly serverless;
   private readonly packageJson;
 

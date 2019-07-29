@@ -11,6 +11,7 @@ module.exports =  {
     '**/*.d.ts',
     '**/*.spec.ts',
     '**/*rc.js',
+    'coverage/*',
   ],
   branches: required,
   lines: required,

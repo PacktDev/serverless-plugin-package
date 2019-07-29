@@ -1,11 +1,29 @@
-import test, { ExecutionContext } from 'ava';
+import anyTest, { ExecutionContext, TestInterface } from 'ava';
+import sinon from 'sinon';
+import Serverless from 'serverless';
 
-// Basic Poking
-const fn = (): string => 'foo';
+import Plugin from './index';
 
-test('fn() returns foo', (t: ExecutionContext): void => {
-  t.is(fn(), 'foo');
-  t.log(`${1 + 1}: test`);
+const test = anyTest as TestInterface;
+
+let sandbox: sinon.SinonSandbox;
+test.beforeEach((): void => {
+  sandbox = sinon.createSandbox();
 });
 
-test.todo('can instantiate the plugin');
+test.afterEach((): void => {
+  sandbox.restore();
+});
+
+test('can instantiate the plugin', (t: ExecutionContext): void => {
+  const sls = sandbox.createStubInstance(Serverless);
+  sls.variables = {
+    getValueFromSource: sandbox.stub(),
+  };
+
+  t.log('sls:', sls);
+
+  const plugin = new Plugin(sls);
+
+  t.truthy(plugin instanceof Plugin);
+});
