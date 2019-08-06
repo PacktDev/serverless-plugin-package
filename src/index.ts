@@ -6,7 +6,7 @@ const packageFile = '/package.json';
 
 export default class Plugin {
   private readonly serverless;
-  private readonly packageJson;
+  public readonly packageJson;
 
   public constructor(serverless: Serverless) {
     this.serverless = serverless;

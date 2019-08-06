@@ -15,8 +15,8 @@
     "task:update": "npx npm-check -uE",
     "task:pin": "npx npm-pin-dependencies",
     "test": "ava --config .avarc.js",
-    "test:watch": "npm run test --silent -- --watch",
-    "test:cover": "nyc --nycrc-path .nycrc.js npm run test --silent"
+    "test:cover": "nyc --nycrc-path .nycrc.js npm run test --silent",
+    "test:watch": "nodemon -e ts -x npm run test:cover --silent"
   },
   "keywords": [
     "serverless",
@@ -57,6 +57,7 @@
     "eslint-config-prettier": "6.0.0",
     "eslint-plugin-ava": "7.1.0",
     "eslint-plugin-prettier": "3.1.0",
+    "nodemon": "1.19.1",
     "nyc": "14.1.1",
     "prettier": "1.18.2",
     "sinon": "7.3.2",

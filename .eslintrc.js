@@ -17,7 +17,10 @@ module.exports =  {
       files: ['*.spec.ts'],
       extends: [
         'plugin:ava/recommended',
-      ]
+      ],
+      rules: {
+        "ava/use-test": "off", // https://github.com/avajs/ava/blob/master/docs/recipes/typescript.md
+      },
     }
   ]
 };
