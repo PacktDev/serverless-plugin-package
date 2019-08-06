@@ -20,6 +20,7 @@ jobs:
     executor: nodejs
     steps:
       # todo: Collect coverage
+      - checkout
       - npm/install # Contains a checkout step (optional)
       - run-tests
   publish:
