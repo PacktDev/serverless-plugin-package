@@ -4,11 +4,9 @@
   "description": "A serverless plugin to expose package.json variables",
   "main": "lib/index.js",
   "scripts": {
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
+    "ci:lint": "npm run lint --silent -- --format junit",
+    "ci:test": "npm run test:cover --silent -- --tap",
     "version": "npm run lint:fix && git add -A src",
-    "postversion": "git push && git push --tags",
     "build": "tsc",
     "lint": "eslint '**/!(*.d).ts'",
     "lint:fix": "npm run lint --silent -- --fix",
@@ -62,6 +60,7 @@
     "prettier": "1.18.2",
     "sinon": "7.3.2",
     "source-map-support": "0.5.12",
+    "tap-xunit": "2.4.1",
     "ts-node": "8.3.0",
     "typescript": "3.5.3"
   }

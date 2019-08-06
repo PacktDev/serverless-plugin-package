@@ -7,8 +7,19 @@ commands:
   run-tests:
     steps:
       - run:
+          name: Create Report directories
+          command: |
+              mkdir -p test-results/ava
+              mkdir -p test-results/eslint
+      - run:
+          name: Lint
+          command: npm run ci:lint > test-results/eslint/results.xml
+      - run:
           name: Test
-          command: npm run test
+          command: npm run ci:test | ./node_modules/tap-xunit/bin/tap-xunit test-results/ava/results.xml
+      - store_test_results:
+          path: test-results
+
 
 executors:
   nodejs:
