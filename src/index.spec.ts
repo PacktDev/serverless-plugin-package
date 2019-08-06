@@ -102,13 +102,12 @@ test('returns a blank string the semver function does not exist', (t: ExecutionC
   const variable = t.context.sls.variables.getValueFromSource('package:semver.doesnotexist');
 
   t.is(variable, '');
-  t.log(t.context.plugin.packageJson.version);
 });
 
 test('returns a blank string if package.json version is empty', (t: ExecutionContext<
   TestContext
 >): void => {
-  t.context.plugin.packageJson.version = undefined;
+  sinon.stub((t.context.plugin as any).packageJson, 'version').value(undefined);
   const variable = t.context.sls.variables.getValueFromSource('package:semver.major');
 
   t.is(variable, '');

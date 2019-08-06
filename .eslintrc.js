@@ -20,6 +20,7 @@ module.exports =  {
       ],
       rules: {
         "ava/use-test": "off", // https://github.com/avajs/ava/blob/master/docs/recipes/typescript.md
+        "@typescript-eslint/no-explicit-any": "off",
       },
     }
   ]
