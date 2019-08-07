@@ -1,7 +1,7 @@
 import anyTest, { ExecutionContext, TestInterface } from 'ava';
 import sinon, { SinonSandbox, SinonStubbedInstance } from 'sinon';
 import Serverless from 'serverless';
-import semver from 'semver';
+// import semver from 'semver';
 
 import Plugin from './index';
 import * as Package from '../package.json';
