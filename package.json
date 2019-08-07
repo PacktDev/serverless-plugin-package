@@ -5,7 +5,9 @@
   "main": "lib/index.js",
   "scripts": {
     "ci:lint": "npm run lint --silent -- --format junit",
-    "ci:test": "npm run test:cover --silent -- --tap",
+    "ci:test": "nyc --nycrc-path .nycrc.ci.js npm run test -- --tap | tap-xunit",
+    "ci:coverage-check": "nyc check-coverage --nycrc-path .nycrc.ci.js",
+    "ci:coverage-report": "nyc report --nycrc-path .nycrc.ci.js --reporter=text --reporter=lcov",
     "version": "npm run lint:fix && git add -A src",
     "build": "tsc",
     "lint": "eslint '**/!(*.d).ts'",
