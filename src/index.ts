@@ -27,7 +27,7 @@ export default class Plugin {
     };
   }
 
-  private resolveVariable(variable: string): string {
+  private resolveVariable(variable: String): string {
     const key = variable.split(`${variablePrefix}:`)[1];
     this.serverless.cli.log(`Resolving ${key} from package.json`);
 

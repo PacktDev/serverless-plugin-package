@@ -18,7 +18,7 @@ commands:
           name: Test
           command: npm run ci:test --silent > test-results/ava/results.xml
       - run:
-          name: Test
+          name: Coverage
           command: |
               npm run ci:coverage-report
               npm run ci:coverage-check
