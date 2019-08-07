@@ -13,10 +13,10 @@ commands:
               mkdir -p test-results/eslint
       - run:
           name: Lint
-          command: npm run ci:lint > test-results/eslint/results.xml
+          command: npm run ci:lint
       - run:
           name: Test
-          command: npm run ci:test
+          command: npm run ci:test > test-results/ava/results.xml
       - run:
           name: Test
           command: |
