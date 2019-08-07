@@ -1,7 +1,7 @@
 import anyTest, { ExecutionContext, TestInterface } from 'ava';
 import sinon, { SinonSandbox, SinonStubbedInstance } from 'sinon';
 import Serverless from 'serverless';
-// import semver from 'semver';
+import semver from 'semver';
 
 import Plugin from './index';
 import * as Package from '../package.json';
@@ -89,26 +89,26 @@ test('returns the package version', (t: ExecutionContext<TestContext>): void => 
   t.falsy(t.context.delegateStub.called);
 });
 
-// test('returns semver major version', (t: ExecutionContext<TestContext>): void => {
-//   const variable = t.context.sls.variables.getValueFromSource('package:semver.major');
-//
-//   t.log(variable);
-//   t.is(variable, semver.major(Package.version));
-// });
-//
-// test('returns a blank string the semver function does not exist', (t: ExecutionContext<
-//   TestContext
-// >): void => {
-//   const variable = t.context.sls.variables.getValueFromSource('package:semver.doesnotexist');
-//
-//   t.is(variable, '');
-// });
-//
-// test('returns a blank string if package.json version is empty', (t: ExecutionContext<
-//   TestContext
-// >): void => {
-//   sinon.stub((t.context.plugin as any).packageJson, 'version').value(undefined);
-//   const variable = t.context.sls.variables.getValueFromSource('package:semver.major');
-//
-//   t.is(variable, '');
-// });
+test('returns semver major version', (t: ExecutionContext<TestContext>): void => {
+  const variable = t.context.sls.variables.getValueFromSource('package:semver.major');
+
+  t.log(variable);
+  t.is(variable, semver.major(Package.version));
+});
+
+test('returns a blank string the semver function does not exist', (t: ExecutionContext<
+  TestContext
+>): void => {
+  const variable = t.context.sls.variables.getValueFromSource('package:semver.doesnotexist');
+
+  t.is(variable, '');
+});
+
+test('returns a blank string if package.json version is empty', (t: ExecutionContext<
+  TestContext
+>): void => {
+  sinon.stub((t.context.plugin as any).packageJson, 'version').value(undefined);
+  const variable = t.context.sls.variables.getValueFromSource('package:semver.major');
+
+  t.is(variable, '');
+});
