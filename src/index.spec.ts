@@ -69,8 +69,8 @@ test('delegates to the original method if not requesting a package variable', (t
 >): void => {
   const variable = t.context.sls.variables.getValueFromSource('notpackage');
 
-  t.not(variable, undefined);
-  t.falsy(t.context.delegateStub.calledWith('notpackage'));
+  t.is(variable, undefined);
+  t.truthy(t.context.delegateStub.calledWith('notpackage'));
 });
 
 test('returns an empty string if the variable does not exist', (t: ExecutionContext<
