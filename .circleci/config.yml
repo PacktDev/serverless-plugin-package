@@ -20,8 +20,8 @@ commands:
       - run:
           name: Coverage
           command: |
-              npm run ci:coverage-report
-              npm run ci:coverage-check
+              npm run ci:coverage-report --silent
+              npm run ci:coverage-check --silent
       - store_test_results:
           path: test-results
       - store_artifacts:
