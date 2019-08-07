@@ -21,7 +21,7 @@ commands:
           name: Test
           command: |
               npm run ci:coverage-report
-              npm run ci:coverage-test
+              npm run ci:coverage-check
       - store_test_results:
           path: test-results
       - store_artifacts:
