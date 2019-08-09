@@ -28,6 +28,20 @@ commands:
           path: test-results
       - store_artifacts:
           path: coverage
+  build:
+    steps:
+      - run:
+          name: Build Package
+          command: npm run build
+  persist:
+    steps:
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+  restore:
+    steps:
+      - attach_workspace:
+          at: ~/repo
 
 
 executors:
@@ -36,26 +50,35 @@ executors:
       - image: 'circleci/node:10.16.0'
 
 jobs:
-  build:
+  test:
+    working_directory: ~/repo
     executor: nodejs
     steps:
-      # todo: Collect coverage
       - checkout
-      - npm/install # Contains a checkout step (optional)
+      - npm/install
       - run-tests
+      - persist
   publish:
+    working_directory: ~/repo
     executor: nodejs
     steps:
-      - npm/install # todo; cache and restore dist.
+      - restore
+      - build
+      - npm/release:
+          executor: nodejs
+          flags: '--access=public'
+          npm-token: $NPM_TOKEN
+          workspace-root: ~/repo
 
 workflows:
   publish:
     jobs:
-      - build
+      - test
       - publish:
           requires:
-            - build
+            - test
           filters:
+            tags:
+              only: /^v.*/
             branches:
-              only:
-                - master
+              ignore: /.*/

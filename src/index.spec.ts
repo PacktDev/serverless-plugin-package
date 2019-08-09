@@ -18,8 +18,6 @@ interface KnownServerlessVariables {
 }
 
 interface ServerlessWithVariables extends Serverless {
-  // note: disabled because sls.variables is fluid.
-  //// eslint-disable-next-line @typescript-eslint/no-explicit-any
   variables: KnownServerlessVariables;
 }
 
