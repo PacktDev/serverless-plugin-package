@@ -7,7 +7,7 @@
     "ci:lint": "npm run lint --silent -- --format junit",
     "ci:test": "nyc --nycrc-path .nycrc.ci.js npm run test -- --tap | tap-xunit",
     "ci:coverage-check": "nyc check-coverage --nycrc-path .nycrc.ci.js",
-    "ci:coverage-report": "nyc report --nycrc-path .nycrc.ci.js --reporter=text --reporter=lcov",
+    "ci:coverage-report": "nyc report --nycrc-path .nycrc.ci.js --reporter=text --reporter=lcov --reporter=json",
     "build": "tsc",
     "lint": "eslint '**/!(*.d).ts'",
     "lint:fix": "npm run lint --silent -- --fix",

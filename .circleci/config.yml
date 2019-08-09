@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   npm: sugarshin/npm@0.1.5
+  codecov: codecov/codecov@1.0.5
 
 commands:
   run-tests:
@@ -28,6 +29,8 @@ commands:
           path: test-results
       - store_artifacts:
           path: coverage
+      - codecov/upload:
+          file: coverage/coverage-final.json
   build:
     steps:
       - run:
