@@ -58,25 +58,29 @@ jobs:
       - npm/install
       - run-tests
       - persist
-  publish:
+  build:
     working_directory: ~/repo
     executor: nodejs
     steps:
       - restore
       - build
-      - npm/release:
-          executor: nodejs
-          flags: '--access=public'
-          npm-token: $NPM_TOKEN
-          workspace-root: ~/repo
+      - persist
 
 workflows:
   publish:
     jobs:
       - test
-      - publish:
+      - build:
           requires:
             - test
+      - npm/release:
+          attach-workspace: true
+          executor: nodejs
+          flags: '--access=public'
+          npm-token: $NPM_TOKEN
+          workspace-root: ~/repo
+          requires:
+            - build
           filters:
             tags:
               only: /^v.*/
