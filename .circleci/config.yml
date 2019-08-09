@@ -75,6 +75,7 @@ workflows:
             - test
       - npm/release:
           requires:
+            - test
             - build
           filters:
             branches:
@@ -86,4 +87,3 @@ workflows:
           flags: '--access=public'
           npm-token: NPM_TOKEN
           workspace-root: ~/repo
-
