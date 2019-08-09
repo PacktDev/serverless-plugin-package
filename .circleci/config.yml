@@ -74,11 +74,6 @@ workflows:
           requires:
             - test
       - npm/release:
-          attach-workspace: true
-          executor: nodejs
-          flags: '--access=public'
-          npm-token: NPM_TOKEN
-          workspace-root: ~/repo
           requires:
             - build
           filters:
@@ -86,3 +81,9 @@ workflows:
               only: /^v.*/
             branches:
               ignore: /.*/
+          attach-workspace: true
+          executor: nodejs
+          flags: '--access=public'
+          npm-token: NPM_TOKEN
+          workspace-root: ~/repo
+
