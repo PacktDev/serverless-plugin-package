@@ -77,7 +77,7 @@ workflows:
           attach-workspace: true
           executor: nodejs
           flags: '--access=public'
-          npm-token: $NPM_TOKEN
+          npm-token: NPM_TOKEN
           workspace-root: ~/repo
           requires:
             - build
