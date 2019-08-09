@@ -1,6 +1,6 @@
 {
   "name": "@packt/serverless-plugin-package",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A serverless plugin to expose package.json variables",
   "main": "lib/index.js",
   "scripts": {
