@@ -77,10 +77,10 @@ workflows:
           requires:
             - build
           filters:
-            tags:
-              only: /^v.*/
             branches:
               ignore: /.*/
+            tags:
+              only: /^v.*/
           attach-workspace: true
           executor: nodejs
           flags: '--access=public'
