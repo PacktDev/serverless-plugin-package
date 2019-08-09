@@ -1,32 +1,69 @@
 {
-  "name": "serverless-plugin-package",
-  "version": "1.0.0",
+  "name": "@packt/serverless-plugin-package",
+  "version": "1.0.11",
   "description": "A serverless plugin to expose package.json variables",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint --ext ts .",
+    "ci:lint": "npm run lint --silent -- --format junit",
+    "ci:test": "nyc --nycrc-path .nycrc.ci.js npm run test -- --tap | tap-xunit",
+    "ci:coverage-check": "nyc check-coverage --nycrc-path .nycrc.ci.js",
+    "ci:coverage-report": "nyc report --nycrc-path .nycrc.ci.js --reporter=text --reporter=lcov --reporter=json",
+    "build": "tsc",
+    "lint": "eslint '**/!(*.d).ts'",
     "lint:fix": "npm run lint --silent -- --fix",
     "task:update": "npx npm-check -uE",
     "task:pin": "npx npm-pin-dependencies",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava --config .avarc.js",
+    "test:cover": "nyc --nycrc-path .nycrc.js npm run test --silent",
+    "test:watch": "nodemon -e ts -x npm run test:cover --silent",
+    "postversion": "git push --tags"
   },
   "keywords": [
-    "serverless"
+    "serverless",
+    "serverless plugin",
+    "package"
   ],
   "author": "Packt Publishing LTD",
+  "contributors": [
+    {
+      "name": "James Macmillan",
+      "email": "jamesm@packt.com"
+    }
+  ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PacktDev/serverless-plugin-package.git"
+  },
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "dependencies": {
     "serverless": "1.48.2"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "0.1.3",
     "@types/node": "10.14.13",
     "@types/serverless": "1.18.2",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
-    "eslint": "^6.1.0",
+    "@types/sinon": "7.0.13",
+    "@typescript-eslint/eslint-plugin": "1.13.0",
+    "@typescript-eslint/parser": "1.13.0",
+    "ava": "2.2.0",
+    "eslint": "6.1.0",
     "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-ava": "7.1.0",
     "eslint-plugin-prettier": "3.1.0",
+    "nodemon": "1.19.1",
+    "nyc": "14.1.1",
     "prettier": "1.18.2",
+    "sinon": "7.3.2",
+    "source-map-support": "0.5.12",
+    "tap-xunit": "2.4.1",
+    "ts-node": "8.3.0",
     "typescript": "3.5.3"
   }
 }

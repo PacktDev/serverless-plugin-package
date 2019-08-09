@@ -1,0 +1,97 @@
+version: 2.1
+
+orbs:
+  npm: sugarshin/npm@0.1.5
+  codecov: codecov/codecov@1.0.5
+
+commands:
+  run-tests:
+    steps:
+      - run:
+          name: Create Report directories
+          command: |
+              mkdir -p test-results/ava
+              mkdir -p test-results/eslint
+      - run:
+          name: Lint
+          command: npm run ci:lint --silent > test-results/eslint/results.xml
+      - run:
+          name: Test
+          command: npm run ci:test --silent > test-results/ava/results.xml
+      - run:
+          name: Coverage
+          command: |
+              npm run ci:coverage-report --silent
+              npm run ci:coverage-check --silent
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+      - store_artifacts:
+          path: coverage
+      - codecov/upload:
+          file: coverage/coverage-final.json
+  build:
+    steps:
+      - run:
+          name: Build Package
+          command: npm run build
+  persist:
+    steps:
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+  restore:
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
+
+executors:
+  nodejs:
+    docker:
+      - image: 'circleci/node:10.16.0'
+
+jobs:
+  test:
+    working_directory: ~/repo
+    executor: nodejs
+    steps:
+      - checkout
+      - npm/install
+      - run-tests
+      - persist
+  build:
+    working_directory: ~/repo
+    executor: nodejs
+    steps:
+      - restore
+      - build
+      - persist
+
+workflows:
+  publish:
+    jobs:
+      - test:
+          filters:
+            tags:
+              only: /.*/
+      - build:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /.*/
+      - npm/release:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+          attach-workspace: true
+          executor: nodejs
+          flags: '--access=public'
+          npm-token: NPM_TOKEN
+          workspace-root: ~/repo

@@ -12,4 +12,16 @@ module.exports =  {
     ecmaVersion:  2018,  // Allows for the parsing of modern ECMAScript features
     sourceType:  'module',  // Allows for the use of imports
   },
+  overrides: [
+    {
+      files: ['*.spec.ts'],
+      extends: [
+        'plugin:ava/recommended',
+      ],
+      rules: {
+        "ava/use-test": "off", // https://github.com/avajs/ava/blob/master/docs/recipes/typescript.md
+        "@typescript-eslint/no-explicit-any": "off",
+      },
+    }
+  ]
 };

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["es2017"],
+    "declaration": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -8,8 +9,12 @@
     "sourceMap": true,
     "target": "es2017",
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "outDir": "./lib"
   },
+  "include": [
+    "src"
+  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
