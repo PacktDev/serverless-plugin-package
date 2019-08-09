@@ -69,10 +69,16 @@ jobs:
 workflows:
   publish:
     jobs:
-      - test
+      - test:
+          filters:
+            tags:
+              only: /.*/
       - build:
           requires:
             - test
+          filters:
+            tags:
+              only: /.*/
       - npm/release:
           requires:
             - build
