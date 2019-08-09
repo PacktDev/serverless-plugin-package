@@ -16,7 +16,7 @@
     "test": "ava --config .avarc.js",
     "test:cover": "nyc --nycrc-path .nycrc.js npm run test --silent",
     "test:watch": "nodemon -e ts -x npm run test:cover --silent",
-    "version": "git push --tags origin"
+    "version": "git push --tags"
   },
   "keywords": [
     "serverless",
