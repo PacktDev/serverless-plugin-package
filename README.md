@@ -4,6 +4,7 @@
 [![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
 ![npm](https://img.shields.io/npm/v/@packt/serverless-plugin-package?color=%23ec6611)
 ![CircleCI](https://img.shields.io/circleci/build/gh/PacktDev/serverless-plugin-package?token=4aaf88650817da45b98c8f6d3e306d5dd9f1579f&logo=circleci)
+![Codecov](https://img.shields.io/codecov/c/gh/PacktDev/serverless-plugin-package?logo=codecov)
 
 Makes `package.json` variables available.in `serverless.yml`, and exposes the `package.json` version as its `semver` components.
 
