@@ -75,13 +75,12 @@ workflows:
             - test
       - npm/release:
           requires:
-            - test
             - build
           filters:
+            tags:
+              only: /.*/
             branches:
               ignore: /.*/
-            tags:
-              only: /^v.*/
           attach-workspace: true
           executor: nodejs
           flags: '--access=public'
