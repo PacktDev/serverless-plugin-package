@@ -1,6 +1,6 @@
 {
   "name": "@packt/serverless-plugin-package",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "A serverless plugin to expose package.json variables",
   "main": "lib/index.js",
   "scripts": {
@@ -47,10 +47,10 @@
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "0.1.3",
-    "@types/node": "12.7.1",
+    "@types/node": "12.7.2",
     "@types/serverless": "1.18.2",
     "@types/sinon": "7.0.13",
-    "@typescript-eslint/eslint-plugin": "1.13.0",
+    "@typescript-eslint/eslint-plugin": "2.0.0",
     "@typescript-eslint/parser": "2.0.0",
     "ava": "2.2.0",
     "eslint": "6.1.0",
