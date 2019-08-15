@@ -1,9 +1,5 @@
 version: 2.1
 
-orbs:
-  npm: sugarshin/npm@0.1.5
-  codecov: codecov/codecov@1.0.5
-
 commands:
   run-tests:
     steps:
@@ -45,7 +41,46 @@ commands:
     steps:
       - attach_workspace:
           at: ~/repo
+  npm-install:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - cache-{{ arch }}-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          name: Restore cache
+      - run:
+          command: 'npm ci '
+          name: Install
+      - save_cache:
+          key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          name: Save cache
+          paths:
+            - ~/.npm
+  npm-publish:
+    steps:
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+      - run:
+          name: Publish a npm module on version bump
+          command: |
+            readonly package_name=$(node -p "require('./package.json').name")
+            readonly version=$(node -p "require('./package.json').version")
+            readonly latest_published_version=$(npm v ${package_name} version 2>/dev/null)
 
+            if [[ $(npx semver ${version}) == "" ]]; then
+              echo "`version` in package.json is not semver."
+              exit 0
+            fi
+
+            readonly versions=$(npx semver ${latest_published_version} ${version})
+            readonly first=$(echo ${versions} | cut -d ' ' -f 1)
+            if [[ "$version" != "$latest_published_version" ]] && [[ "$first" = "$latest_published_version" ]]; then
+              npm publish --access=public
+
+            else
+              echo "${version} exists. Publish Skipped"
+            fi
 
 executors:
   nodejs:
@@ -58,7 +93,7 @@ jobs:
     executor: nodejs
     steps:
       - checkout
-      - npm/install
+      - npm-install
       - run-tests
       - persist
   build:
@@ -68,6 +103,12 @@ jobs:
       - restore
       - build
       - persist
+  publish:
+    working_directory: ~/repo
+    executor: nodejs
+    steps:
+      - restore
+      - npm-publish
 
 workflows:
   publish:
@@ -82,7 +123,7 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - npm/release:
+      - publish:
           requires:
             - build
           filters:
@@ -90,8 +131,3 @@ workflows:
               only: /.*/
             branches:
               ignore: /.*/
-          attach-workspace: true
-          executor: nodejs
-          flags: '--access=public'
-          npm-token: NPM_TOKEN
-          workspace-root: ~/repo
