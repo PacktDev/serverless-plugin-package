@@ -61,7 +61,7 @@
     "nyc": "14.1.1",
     "prettier": "1.18.2",
     "sinon": "7.4.1",
-    "source-map-support": "0.5.13",
+    "source-map-support": "0.5.15",
     "tap-xunit": "2.4.1",
     "ts-node": "8.3.0",
     "typescript": "3.5.3"
