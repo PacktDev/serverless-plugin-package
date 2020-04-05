@@ -63,7 +63,7 @@
     "sinon": "7.4.1",
     "source-map-support": "0.5.13",
     "tap-xunit": "2.4.1",
-    "ts-node": "8.3.0",
+    "ts-node": "8.8.2",
     "typescript": "3.5.3"
   }
 }
